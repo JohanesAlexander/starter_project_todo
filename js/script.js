@@ -54,6 +54,25 @@ document.addEventListener(RENDER_EVENT, function () {
   }
 });
 
+function removeTaskFromCompleted(todoId) {
+  const todoTarget = findTodoIndex(todoId);
+ 
+  if (todoTarget === -1) return;
+ 
+  todos.splice(todoTarget, 1);
+  document.dispatchEvent(new Event(RENDER_EVENT));
+}
+ 
+ 
+function undoTaskFromCompleted(todoId) {
+  const todoTarget = findTodo(todoId);
+ 
+  if (todoTarget == null) return;
+ 
+  todoTarget.isCompleted = false;
+  document.dispatchEvent(new Event(RENDER_EVENT));
+}
+
 function makeTodo(todoObject) {
   const textTitle = document.createElement('h2');
   textTitle.innerText = todoObject.task;
