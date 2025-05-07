@@ -54,6 +54,16 @@ document.addEventListener(RENDER_EVENT, function () {
   }
 });
 
+function findTodoIndex(todoId) {
+  for (const index in todos) {
+    if (todos[index].id === todoId) {
+      return index;
+    }
+  }
+ 
+  return -1;
+}
+
 function removeTaskFromCompleted(todoId) {
   const todoTarget = findTodoIndex(todoId);
  
