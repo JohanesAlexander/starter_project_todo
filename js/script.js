@@ -1,5 +1,10 @@
-const todos = [];
-const RENDER_EVENT = 'render-todo';
+
+//todos adalah sebuah variabel berisi array yang akan menampung beberapa object.
+const todos = []; 
+
+//mendefinisikan Custom Event dengan nama 'render-todo'. Custom event ini digunakan sebagai patokan dasar ketika ada perubahan data pada variabel todos, seperti perpindahan todo (dari incomplete menjadi complete, dan sebaliknya), menambah todo, maupun menghapus todo. 
+const RENDER_EVENT = 'render-todo'; 
+
 
 document.addEventListener('DOMContentLoaded', function () {
   const submitForm = document.getElementById('form');
