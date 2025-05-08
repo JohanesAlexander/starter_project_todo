@@ -5,6 +5,16 @@ const todos = [];
 //mendefinisikan Custom Event dengan nama 'render-todo'. Custom event ini digunakan sebagai patokan dasar ketika ada perubahan data pada variabel todos, seperti perpindahan todo (dari incomplete menjadi complete, dan sebaliknya), menambah todo, maupun menghapus todo. 
 const RENDER_EVENT = 'render-todo'; 
 
+const SAVED_EVENT = 'saved-todo';
+const STORAGE_KEY = 'TODO_APPS';
+ 
+function isStorageExist() /* boolean */ {
+  if (typeof (Storage) === undefined) {
+    alert('Browser kamu tidak mendukung local storage');
+    return false;
+  }
+  return true;
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   const submitForm = document.getElementById('form');
@@ -13,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addTodo();
   });
 });
+
 function saveData() {
   if (isStorageExist()) {
     const parsed = JSON.stringify(todos);
@@ -20,6 +31,7 @@ function saveData() {
     document.dispatchEvent(new Event(SAVED_EVENT));
   }
 }
+
 function addTodo() {
   const textTodo = document.getElementById('title').value;
   const timestamp = document.getElementById('date').value;
@@ -185,7 +197,9 @@ document.addEventListener(RENDER_EVENT, function () {
     }
   });
 
-
+  document.addEventListener(SAVED_EVENT, function () {
+    console.log(localStorage.getItem(STORAGE_KEY));
+  });
 
 
 
