@@ -13,7 +13,13 @@ document.addEventListener('DOMContentLoaded', function () {
     addTodo();
   });
 });
-
+function saveData() {
+  if (isStorageExist()) {
+    const parsed = JSON.stringify(todos);
+    localStorage.setItem(STORAGE_KEY, parsed);
+    document.dispatchEvent(new Event(SAVED_EVENT));
+  }
+}
 function addTodo() {
   const textTodo = document.getElementById('title').value;
   const timestamp = document.getElementById('date').value;
@@ -23,6 +29,7 @@ function addTodo() {
   todos.push(todoObject);
  
   document.dispatchEvent(new Event(RENDER_EVENT));
+  saveData();
 }
 
 function generateId() {
@@ -71,6 +78,8 @@ function removeTaskFromCompleted(todoId) {
  
   todos.splice(todoTarget, 1);
   document.dispatchEvent(new Event(RENDER_EVENT));
+
+  saveData();
 }
  
  
@@ -81,6 +90,7 @@ function undoTaskFromCompleted(todoId) {
  
   todoTarget.isCompleted = false;
   document.dispatchEvent(new Event(RENDER_EVENT));
+  saveData();
 }
 
 function makeTodo(todoObject) {
@@ -146,6 +156,7 @@ function addTaskToCompleted (todoId) {
  
   todoTarget.isCompleted = true;
   document.dispatchEvent(new Event(RENDER_EVENT));
+  saveData();
 }
 
 document.addEventListener(RENDER_EVENT, function () {
